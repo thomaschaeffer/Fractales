@@ -1,4 +1,4 @@
-def escape_iterations ( c , max_iter):
+def escape_iterations__mandelbrot ( c , max_iter):
     z=0
     cmp=0
     while abs(z)<=2 and cmp < max_iter : 
