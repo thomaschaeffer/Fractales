@@ -2,6 +2,7 @@ import numpy as np
 from pathlib import Path
 from PIL import Image
 from fractales.core import escape_iterations__mandelbrot
+from fractales.palettes import colorize
 
 def compute_fractal_mandelbrot(width, height, x_min, x_max, y_min, y_max, max_iter):
     A = np.zeros((height,width),dtype=int)
@@ -27,5 +28,7 @@ def save_grayscale(iterations, max_iter , output_path):
     image = Image.fromarray(A)
     image.save(output_path)
 
-A = compute_fractal_mandelbrot(1600, 1200, -2.5, 1.0, -1.2, 1.2, 100)
-save_grayscale(A, 100 , "outputs/mandelbrot_gray.png")
+def save_colorize(iteration,max_iter,colors,outputpath):
+    image = colorize(iteration,max_iter,colors)
+    Image.fromarray(image).save(outputpath)
+

@@ -8,3 +8,8 @@ Generate a mandelbrot fractal:
 python -m fractales.app
 ```
 
+tests: 
+```bash
+python -m pytest
+```
+
