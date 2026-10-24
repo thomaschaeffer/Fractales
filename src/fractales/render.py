@@ -1,17 +1,39 @@
 import numpy as np
 from pathlib import Path
 from PIL import Image
-from fractales.core import escape_iterations__mandelbrot, smooth_iterations
+from fractales.core import mandelbrot_escape_iterations,julia_escape_iterations, burning_ship_escape_iterations,smooth_iterations
 from fractales.palettes import colorize
 
-def compute_fractal_mandelbrot(width, height, x_min, x_max, y_min, y_max, max_iter):
+def mandelbrot_compute_fractal(width, height, x_min, x_max, y_min, y_max, max_iter):
     A = np.zeros((height,width),dtype=float)
     for y in range(height):
         for x in range(width):
             x_c = x_min + x/(width -1) * (x_max - x_min)
             y_c = y_min + y/ (height -1) * (y_max - y_min)
             c = complex(x_c,y_c)
-            n,z = escape_iterations__mandelbrot(c,max_iter)
+            n,z = mandelbrot_escape_iterations(c,max_iter)
+            A[y,x] = smooth_iterations(n,z,max_iter)
+    return A
+
+def julia_compute_fractal(width, height, x_min, x_max, y_min, y_max, max_iter,c):
+    A = np.zeros((height,width),dtype=float)
+    for y in range(height):
+        for x in range(width):
+            x_c = x_min + x/(width -1) * (x_max - x_min)
+            y_c = y_min + y/ (height -1) * (y_max - y_min)
+            z0 = complex(x_c,y_c)
+            n,z = julia_escape_iterations(z0,c,max_iter)
+            A[y,x] = smooth_iterations(n,z,max_iter)
+    return A
+
+def burning_ship_compute_fractal(width, height, x_min, x_max, y_min, y_max, max_iter):
+    A = np.zeros((height,width),dtype=float)
+    for y in range(height):
+        for x in range(width):
+            x_c = x_min + x/(width -1) * (x_max - x_min)
+            y_c = y_min + y/ (height -1) * (y_max - y_min)
+            c = complex(x_c,y_c)
+            n,z = burning_ship_escape_iterations(c,max_iter)
             A[y,x] = smooth_iterations(n,z,max_iter)
     return A
 
