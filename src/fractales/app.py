@@ -8,7 +8,7 @@ def mandelbrot_gray():
     save_grayscale(A, 100 , "outputs/mandelbrot_gray.png")
 
 def mandelbrot():
-    save_colorize(A,100,colors["sunset"],"outputs/mandelbrot_sunset.png")
+    save_colorize(A,100,colors["sunset"],"outputs/mandelbrot_sunset_clean.png")
 
 if __name__ == "__main__":
     mandelbrot_gray()

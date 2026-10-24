@@ -5,7 +5,7 @@ from fractales.core import escape_iterations__mandelbrot, smooth_iterations
 from fractales.palettes import colorize
 
 def compute_fractal_mandelbrot(width, height, x_min, x_max, y_min, y_max, max_iter):
-    A = np.zeros((height,width),dtype=int)
+    A = np.zeros((height,width),dtype=float)
     for y in range(height):
         for x in range(width):
             x_c = x_min + x/(width -1) * (x_max - x_min)
