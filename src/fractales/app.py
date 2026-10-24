@@ -1,7 +1,7 @@
 import cupy as cp
 from fractales.render import mandelbrot_compute_fractal,julia_compute_fractal,burning_ship_compute_fractal, save_grayscale,save_colorize
 from fractales.palettes import colors
-from fractales.gpu import compute_mandelbrot_gpu
+from fractales.gpu import compute_mandelbrot_gpu, compute_julia_gpu,compute_burning_ship_gpu
 
 
 
@@ -34,9 +34,17 @@ def CPU():
     burning_ship()
 
 def GPU():
-    A = compute_mandelbrot_gpu(7000, 4800, -2.5,  1.0, -1.2, 1.2, 150)
+    A = compute_mandelbrot_gpu(6400, 4800, -2.5,  1.0, -1.2, 1.2, 150)
     A = cp.asnumpy(A)
     save_colorize(A,150,colors["sunset"],"outputs/mandelbrot_sunset.png")
+
+    B = compute_julia_gpu(6400, 4800, -1.6, 1.6, -1.2, 1.2, 150,complex(-0.8,0.156))
+    B = cp.asnumpy(B)
+    save_colorize(B,150,colors["sunset"],"outputs/julia_sunset.png")
+
+    C = compute_burning_ship_gpu(6400, 4800, -2.0,  1.5, -1.6, 0.8, 150)
+    C = cp.asnumpy(C)
+    save_colorize(C,150,colors["sunset"],"outputs/burning_ship_sunset.png")
 if __name__ == "__main__":
     #CPU()
     GPU()
