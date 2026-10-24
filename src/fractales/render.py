@@ -1,7 +1,7 @@
 import numpy as np
 from pathlib import Path
 from PIL import Image
-from fractales.core import escape_iterations__mandelbrot
+from fractales.core import escape_iterations__mandelbrot, smooth_iterations
 from fractales.palettes import colorize
 
 def compute_fractal_mandelbrot(width, height, x_min, x_max, y_min, y_max, max_iter):
@@ -11,7 +11,8 @@ def compute_fractal_mandelbrot(width, height, x_min, x_max, y_min, y_max, max_it
             x_c = x_min + x/(width -1) * (x_max - x_min)
             y_c = y_min + y/ (height -1) * (y_max - y_min)
             c = complex(x_c,y_c)
-            A[y,x] = escape_iterations__mandelbrot(c,max_iter)
+            n,z = escape_iterations__mandelbrot(c,max_iter)
+            A[y,x] = smooth_iterations(n,z,max_iter)
     return A
 
 def save_grayscale(iterations, max_iter , output_path):
